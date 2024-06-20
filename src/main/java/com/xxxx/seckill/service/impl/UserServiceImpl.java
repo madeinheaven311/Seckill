@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         }
         //用户登录成功，创建session
-//        生成sessionid
+//        生成session id
         String ticket = UUIDUtil.uuid();
         //将创建好的session放入redis中存储
         redisTemplate.opsForValue().set("user:"+ticket,user);

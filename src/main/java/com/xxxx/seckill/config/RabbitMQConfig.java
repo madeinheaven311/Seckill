@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    private static final String EXCHANGE = "seckillExchange";
+    public static final String EXCHANGE = "seckillExchange";
     private static final String QUEUE = "seckillQueue";
 
     @Bean

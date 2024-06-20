@@ -35,7 +35,7 @@ public class MQReceiver {
         if (goodsVo.getGoodsStock() < 1) {
             return;
         }
-        //判断是否重复购买
+        //判断是否重复购买，根据用户和商品id生成键值储存到redis中，若能取到值说明订单已存在了
         SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + user.getId() + ":" + goodsId);
         if (seckillOrder != null) {
             return;

@@ -2,13 +2,12 @@ package com.xxxx.seckill.exception;
 
 
 import com.xxxx.seckill.vo.RespBean;
-import com.xxxx.seckill.vo.RespBeanEnum;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 @RestControllerAdvice
-public class GlobelExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public RespBean ExceptionHandler(Exception e) {

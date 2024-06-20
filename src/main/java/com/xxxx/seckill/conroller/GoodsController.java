@@ -38,7 +38,7 @@ public class GoodsController {
      * 优化前，QPS:1029
      *  页面静态化处理优化后，QPS:1704
      * */
-    //跳转到商品详情页面
+    //跳转到秒杀商品详情页面，查询商品
     @RequestMapping(value = "/toList",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String toList(Model model, User user, HttpServletRequest request, HttpServletResponse response){
@@ -69,7 +69,7 @@ public class GoodsController {
      * 优化前QPS: 591
      * 前后端分离优化：1384
      * */
-//   /detail/1  restful 风格的传参
+//   /detail/1  restful 风格的传参，查看秒杀商品详情信息
     @RequestMapping("/detail/{goodsId}")
     @ResponseBody
     public RespBean toDetail(User user, @PathVariable Long goodsId){

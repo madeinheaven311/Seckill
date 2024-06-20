@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class  LoginController {
 
     @Autowired
     private IUserService userService;
@@ -26,6 +26,7 @@ public class LoginController {
         return "login";
     }
 
+    //执行登录访问请求
     @RequestMapping("/doLogin")
     @ResponseBody
     public RespBean doLogin(LoginVo loginVo, HttpServletRequest request , HttpServletResponse response) {

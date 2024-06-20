@@ -67,7 +67,7 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
 
     /**
      * 构建返回对象
-     * */
+     **/
     private void render(HttpServletResponse response, RespBeanEnum respBeanEnum) throws IOException {
         //拼接response的头
         response.setContentType("application/json");

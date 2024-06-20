@@ -52,17 +52,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 	@Override
 	public Order seckill(User user, GoodsVo goods) {
 		//1 减库存
-		SeckillGoods seckillGoods = seckillGoodsService.getOne(new QueryWrapper<SeckillGoods>().eq("goods_id", goods.getId()));
-//		seckillGoods.setStockCount(seckillGoods.getStockCount()-1);
-		//updateById会对所有的字段进行update影响效率
-//		seckillGoodsService.updateById(seckillGoods);
+		SeckillGoods seckillGoods = seckillGoodsService.getOne(new QueryWrapper<SeckillGoods>()
+				.eq("goods_id", goods.getId()));
 
+		//seckillGoods.setStockCount(seckillGoods.getStockCount()-1);
+		//updateById会对所有的字段进行update影响效率
+		//seckillGoodsService.updateById(seckillGoods);
 		//update seckillgoods set stock_count=stock_count-1 where goods_id=goods.getId() stock_count>0
+		//按对应商品更新库存，条件必须是库存大于0
 		boolean result = seckillGoodsService.update(new UpdateWrapper<SeckillGoods>().
 				setSql("stock_count=stock_count-1").eq("goods_id", goods.getId()).gt("stock_count",0));
 
 		if (seckillGoods.getStockCount() < 1) {
-		//判断如果当数据库没有库存时，设定一个库存为null的redi skey
+		//判断如果当数据库没有库存时，设定一个库存为null的redis key
 			redisTemplate.opsForValue().set("isStockEmpty:"+goods.getId(),"0");
 			return null;
 		}
@@ -83,7 +85,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 		seckillOrder.setUserId(user.getId());
 		seckillOrder.setOrderId(order.getId());
 		seckillOrder.setGoodsId(goods.getId());
-		seckillOrderService.save(seckillOrder); //要明确，为什么oder用mapper保存，而这用sevice，为了业务隔离
+		seckillOrderService.save(seckillOrder);
+		//要明确，为什么order用mapper保存，而这用service，为了业务隔离
 		//将购买记录添加到redis中，这样的判断重复购买就可以直接从redis中取而不走数据库
 		redisTemplate.opsForValue().set("order:"+user.getId()+":"+goods.getId(),seckillOrder);
 		return order;

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.xxxx.seckill.config.RabbitMQConfig;
 
 @Service
 @Slf4j
@@ -14,7 +15,7 @@ public class MQSender {
 
     public void sendSeckillMessage(String message) {
         log.info("发送消息" + message);
-        rabbitTemplate.convertAndSend("seckillExchange", "seckill.msg", message);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, "seckill.msg", message);
     }
 
 }

@@ -23,8 +23,8 @@ public interface IOrderService extends IService<Order> {
 	/**
 	 * 功能描述: 秒杀
 	 *
-	 * @param:
-	 * @return:
+	 * @param: User, GoodsVo
+	 * @return: Order
 	 *
 	 *
 	 *
@@ -38,5 +38,5 @@ public interface IOrderService extends IService<Order> {
 
     String createPath(User user, Long goodsId);
 
-	boolean checkPath(String path,User user, Long goodsId);
+	boolean checkPath(String path, User user, Long goodsId);
 }

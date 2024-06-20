@@ -51,6 +51,8 @@ public class SecKillController implements InitializingBean {
     private Map<Long, Boolean> emptyStockMap = new HashMap<>();
 
 
+
+
     /**
      * 优化前QPS ： 244
      * 前后端分离优化后QPS : 256
@@ -65,14 +67,13 @@ public class SecKillController implements InitializingBean {
         }
         ValueOperations ops = redisTemplate.opsForValue();
 
+        //查看所用路由是否合法，用于浏览器加密秒杀路径
         boolean check = orderService.checkPath(path,user,goodsId);
         if (!check) {
             return RespBean.error(RespBeanEnum.STATUS_ILLEGAL);
         }
 
         //根据id查询商品  当前代码只和redis打交道，不做任何数据库操作
-//        GoodsVo goods = goodsService.findGoodsVoByGoodsId(goodsId);
-
         //检查重复购买让操作通过redis而不是通过数据库
         SeckillOrder seckillOrder = (SeckillOrder)redisTemplate.opsForValue().get("order:" + user.getId() + ":" + goodsId);
         if (seckillOrder != null) {
@@ -90,12 +91,16 @@ public class SecKillController implements InitializingBean {
             ops.increment("seckillGoods:" + goodsId);
             return RespBean.error(RespBeanEnum.EMPTY_STOCK);
         }
+
         //创建个对象，用于向mq发送用户和商品，用于下单
         SeckillMessage message = new SeckillMessage(user, goodsId);
         //将对象转成json串放入mq
         sender.sendSeckillMessage(JsonUtil.object2JsonStr(message));
         return RespBean.success();
     }
+
+
+
 
     //实现InitializingBean接口，重写方法，当系统启动，启动流程加载玩配置文件之后会自动执行这个方法
     //在系统初始化的时候，读取数据库秒杀商品，将商品库存放入redis中
@@ -114,6 +119,10 @@ public class SecKillController implements InitializingBean {
 
     }
 
+
+
+
+    //获取当前订单状态，orderId: 成功  -1 秒杀失败，0 排队中
     /**
      * @return orderId: 成功  -1 秒杀失败，0 排队中
      * */
@@ -127,13 +136,16 @@ public class SecKillController implements InitializingBean {
         return RespBean.success(orderId);
     }
 
+
+
+
+    //用于安全加密保证
     /**
      * 获取秒杀地址
      *
      * @param goodsId 商品ID
      * @return 秒杀真实地址
      */
-
     @AccessLimit(second=5,maxCount=5)
     @RequestMapping("/path")
     @ResponseBody

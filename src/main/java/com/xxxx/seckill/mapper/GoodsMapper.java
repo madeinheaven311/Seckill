@@ -19,30 +19,7 @@ import java.util.List;
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-	/**
-	 * 功能描述: 获取商品列表
-	 *
-	 * @param:
-	 * @return:
-	 *
-	 *
-	 *
-	 * @since: 1.0.0
-	 * @Author:chen
-	 */
 	List<GoodsVo> findGoodsVo();
 
-	/**
-	 * 功能描述: 获取商品详情
-	 *
-	 * @param:
-	 * @return:
-	 *
-	 *
-	 *
-	 * @since: 1.0.0
-	 * @Author:chen
-	 * @param goodsId
-	 */
 	GoodsVo findGoodsVoByGoodsId(Long goodsId);
 }

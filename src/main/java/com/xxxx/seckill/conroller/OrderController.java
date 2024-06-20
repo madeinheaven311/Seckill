@@ -18,6 +18,8 @@ public class OrderController {
     @Autowired
     private IOrderService orderService;
 
+
+    //获取订单详情信息
     @RequestMapping("/detail")
     @ResponseBody
     public RespBean orderDetail(User user, Long orderId){

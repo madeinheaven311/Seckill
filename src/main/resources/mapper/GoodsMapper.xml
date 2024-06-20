@@ -42,7 +42,7 @@
     </select>
 
 
-	<!-- 获取商品详情 -->
+	<!-- 获取秒杀商品详情 -->
 	<select id="findGoodsVoByGoodsId" resultType="com.xxxx.seckill.vo.GoodsVo">
         SELECT
             g.id,

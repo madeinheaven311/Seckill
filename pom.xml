@@ -34,6 +34,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <!--mybatis-plus 依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -75,6 +76,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
         <!-- test组件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

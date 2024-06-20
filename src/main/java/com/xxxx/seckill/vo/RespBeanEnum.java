@@ -1,6 +1,5 @@
 package com.xxxx.seckill.vo;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
